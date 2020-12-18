@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="grpc.product.dao.ProductDao" >
+  <resultMap id="BaseResultMap" type="grpc.product.dto.ProductDto" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="clid" property="clid" jdbcType="BIGINT" />
+    <result column="lot_no" property="lotNo" jdbcType="BIGINT" />
+    <result column="product_cd" property="productCd" jdbcType="LONGVARCHAR" />
+    <result column="ctgry_id" property="ctgryId" jdbcType="BIGINT" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_mgt_id" property="productMgtId" jdbcType="VARCHAR" />
+    <result column="mgt_product_name" property="mgtProductName" jdbcType="VARCHAR" />
+    <result column="public_open_start_date" property="publicOpenStartDate" jdbcType="VARCHAR" />
+    <result column="product_model" property="productModel" jdbcType="LONGVARCHAR" />
+    <result column="jan_cd" property="janCd" jdbcType="VARCHAR" />
+    <result column="isbn_cd" property="isbnCd" jdbcType="VARCHAR" />
+    <result column="product_spec_title" property="productSpecTitle" jdbcType="VARCHAR" />
+    <result column="sell_sts_kbn" property="sellStsKbn" jdbcType="VARCHAR" />
+    <result column="sell_price" property="sellPrice" jdbcType="BIGINT" />
+    <result column="sell_method_kbn" property="sellMethodKbn" jdbcType="VARCHAR" />
+    <result column="sell_instock_expct_day" property="sellInstockExpctDay" jdbcType="TIMESTAMP" />
+    <result column="reserve_regst_day" property="reserveRegstDay" jdbcType="TIMESTAMP" />
+    <result column="tax_kbn" property="taxKbn" jdbcType="VARCHAR" />
+    <result column="comparison_price" property="comparisonPrice" jdbcType="BIGINT" />
+    <result column="double_price_txt" property="doublePriceTxt" jdbcType="VARCHAR" />
+    <result column="dlvfee_config_kbn" property="dlvfeeConfigKbn" jdbcType="VARCHAR" />
+    <result column="dlvfee" property="dlvfee" jdbcType="BIGINT" />
+    <result column="buy_limit_config_kbn" property="buyLimitConfigKbn" jdbcType="VARCHAR" />
+    <result column="max_buy_quantity" property="maxBuyQuantity" jdbcType="INTEGER" />
+    <result column="pt_magnification" property="ptMagnification" jdbcType="INTEGER" />
+    <result column="pwd_limit_config" property="pwdLimitConfig" jdbcType="VARCHAR" />
+    <result column="pwd_limit_page_title" property="pwdLimitPageTitle" jdbcType="VARCHAR" />
+    <result column="pwd_limit_page_msg" property="pwdLimitPageMsg" jdbcType="LONGVARCHAR" />
+    <result column="time_sale_lock_flg" property="timeSaleLockFlg" jdbcType="TINYINT" />
+    <result column="time_sale_unlock_expct_date" property="timeSaleUnlockExpctDate" jdbcType="VARCHAR" />
+    <result column="favorite_su" property="favoriteSu" jdbcType="BIGINT" />
+    <result column="arrival_req_su" property="arrivalReqSu" jdbcType="BIGINT" />
+    <result column="exhibit_regst_method_kbn" property="exhibitRegstMethodKbn" jdbcType="VARCHAR" />
+    <result column="del_flg" property="delFlg" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="update_id" property="updateId" jdbcType="BIGINT" />
+    <result column="create_pgm_id" property="createPgmId" jdbcType="VARCHAR" />
+    <result column="update_pgm_id" property="updatePgmId" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, clid, lot_no, product_cd, ctgry_id, product_name, product_mgt_id, mgt_product_name, public_open_start_date, product_model, 
+    jan_cd, isbn_cd, product_spec_title, sell_sts_kbn, sell_price, sell_method_kbn, sell_instock_expct_day, 
+    reserve_regst_day, tax_kbn, comparison_price, double_price_txt, dlvfee_config_kbn, 
+    dlvfee, buy_limit_config_kbn, max_buy_quantity, pt_magnification, pwd_limit_config, 
+    pwd_limit_page_title, pwd_limit_page_msg, time_sale_lock_flg, time_sale_unlock_expct_date, favorite_su, 
+    arrival_req_su, exhibit_regst_method_kbn, del_flg, create_date, update_date, create_id, 
+    update_id, create_pgm_id, update_pgm_id, version
+  </sql>
+  <select id="getProductByLotNo" resultMap="BaseResultMap" parameterType="java.util.List" resultType="java.util.List">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where lot_no in
+		<foreach item="item" collection="list" separator="," open="(" close=")" index="">
+			#{item}
+		</foreach>
+  </select>
+  <select id="getProductById" resultMap="BaseResultMap" parameterType="java.lang.Long" resultType="grpc.product.dto.ProductDto">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id}
+  </select>
+  <insert id="insertProdudt" parameterType="grpc.product.dto.ProductDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into product (clid, lot_no, 
+      ctgry_id, product_name, product_mgt_id, 
+      mgt_product_name, public_open_start_date, jan_cd, 
+      isbn_cd, product_spec_title, sell_sts_kbn, 
+      sell_price, sell_method_kbn, sell_instock_expct_day, 
+      reserve_regst_day, tax_kbn, comparison_price, 
+      double_price_txt, dlvfee_config_kbn, dlvfee, 
+      buy_limit_config_kbn, max_buy_quantity, pt_magnification, 
+      pwd_limit_config, pwd_limit_page_title, time_sale_lock_flg, 
+      time_sale_unlock_expct_date, favorite_su, arrival_req_su, 
+      exhibit_regst_method_kbn, del_flg, create_date, 
+      update_date, create_id, update_id, 
+      create_pgm_id, update_pgm_id, version, 
+      product_cd, product_model, pwd_limit_page_msg
+      )
+    values (#{clid,jdbcType=BIGINT}, #{lotNo,jdbcType=BIGINT}, 
+      #{ctgryId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{productMgtId,jdbcType=VARCHAR}, 
+      #{mgtProductName,jdbcType=VARCHAR}, #{publicOpenStartDate,jdbcType=VARCHAR}, #{janCd,jdbcType=VARCHAR}, 
+      #{isbnCd,jdbcType=VARCHAR}, #{productSpecTitle,jdbcType=VARCHAR}, #{sellStsKbn,jdbcType=VARCHAR}, 
+      #{sellPrice,jdbcType=BIGINT}, #{sellMethodKbn,jdbcType=VARCHAR}, #{sellInstockExpctDay,jdbcType=TIMESTAMP}, 
+      #{reserveRegstDay,jdbcType=TIMESTAMP}, #{taxKbn,jdbcType=VARCHAR}, #{comparisonPrice,jdbcType=BIGINT}, 
+      #{doublePriceTxt,jdbcType=VARCHAR}, #{dlvfeeConfigKbn,jdbcType=VARCHAR}, #{dlvfee,jdbcType=BIGINT}, 
+      #{buyLimitConfigKbn,jdbcType=VARCHAR}, #{maxBuyQuantity,jdbcType=INTEGER}, #{ptMagnification,jdbcType=INTEGER}, 
+      #{pwdLimitConfig,jdbcType=VARCHAR}, #{pwdLimitPageTitle,jdbcType=VARCHAR}, #{timeSaleLockFlg,jdbcType=TINYINT}, 
+      #{timeSaleUnlockExpctDate,jdbcType=VARCHAR}, #{favoriteSu,jdbcType=BIGINT}, #{arrivalReqSu,jdbcType=BIGINT}, 
+      #{exhibitRegstMethodKbn,jdbcType=VARCHAR}, 0, sysdate(), 
+      sysdate(), #{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, 
+      #{createPgmId,jdbcType=VARCHAR}, #{updatePgmId,jdbcType=VARCHAR}, 1, 
+      #{productCd,jdbcType=LONGVARCHAR}, #{productModel,jdbcType=LONGVARCHAR}, #{pwdLimitPageMsg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateProdudt" parameterType="grpc.product.dto.ProductDto" >
+    update product
+    set clid = #{clid,jdbcType=BIGINT},
+      lot_no = #{lotNo,jdbcType=BIGINT},
+      ctgry_id = #{ctgryId,jdbcType=BIGINT},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_mgt_id = #{productMgtId,jdbcType=VARCHAR},
+      mgt_product_name = #{mgtProductName,jdbcType=VARCHAR},
+      public_open_start_date = #{publicOpenStartDate,jdbcType=VARCHAR},
+      jan_cd = #{janCd,jdbcType=VARCHAR},
+      isbn_cd = #{isbnCd,jdbcType=VARCHAR},
+      product_spec_title = #{productSpecTitle,jdbcType=VARCHAR},
+      sell_sts_kbn = #{sellStsKbn,jdbcType=VARCHAR},
+      sell_price = #{sellPrice,jdbcType=BIGINT},
+      sell_method_kbn = #{sellMethodKbn,jdbcType=VARCHAR},
+      sell_instock_expct_day = #{sellInstockExpctDay,jdbcType=TIMESTAMP},
+      reserve_regst_day = #{reserveRegstDay,jdbcType=TIMESTAMP},
+      tax_kbn = #{taxKbn,jdbcType=VARCHAR},
+      comparison_price = #{comparisonPrice,jdbcType=BIGINT},
+      double_price_txt = #{doublePriceTxt,jdbcType=VARCHAR},
+      dlvfee_config_kbn = #{dlvfeeConfigKbn,jdbcType=VARCHAR},
+      dlvfee = #{dlvfee,jdbcType=BIGINT},
+      buy_limit_config_kbn = #{buyLimitConfigKbn,jdbcType=VARCHAR},
+      max_buy_quantity = #{maxBuyQuantity,jdbcType=INTEGER},
+      pt_magnification = #{ptMagnification,jdbcType=INTEGER},
+      pwd_limit_config = #{pwdLimitConfig,jdbcType=VARCHAR},
+      pwd_limit_page_title = #{pwdLimitPageTitle,jdbcType=VARCHAR},
+      time_sale_lock_flg = #{timeSaleLockFlg,jdbcType=TINYINT},
+      time_sale_unlock_expct_date = #{timeSaleUnlockExpctDate,jdbcType=VARCHAR},
+      favorite_su = #{favoriteSu,jdbcType=BIGINT},
+      arrival_req_su = #{arrivalReqSu,jdbcType=BIGINT},
+      exhibit_regst_method_kbn = #{exhibitRegstMethodKbn,jdbcType=VARCHAR},
+      update_date = sysdate(),
+      update_id = #{updateId,jdbcType=BIGINT},
+      update_pgm_id = #{updatePgmId,jdbcType=VARCHAR},
+      version = version + 1,
+      product_cd = #{productCd,jdbcType=LONGVARCHAR},
+      product_model = #{productModel,jdbcType=LONGVARCHAR},
+      pwd_limit_page_msg = #{pwdLimitPageMsg,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

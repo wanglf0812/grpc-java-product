@@ -1,0 +1,109 @@
+
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "grpc.product.proto";
+option java_outer_classname = "ProductProto";
+
+package product;
+
+service Product {
+  
+  rpc GetProductByLotNo(RequestLotNo) returns (ReplyProductList) {}
+  rpc InsertProduct(RequestProduct) returns (ReplyProduct) {}
+  rpc UpdateProduct(RequestProduct) returns (ReplyProduct) {}
+}
+
+message RequestLotNo {
+  repeated int64 lot_no = 1;
+}
+
+message ReplyProductList {
+  repeated ReplyProduct replyProductList = 1;
+}
+
+message ReplyProduct {
+     int64 id = 1;
+	 int64 clid = 2;
+	 int64 lot_no = 3;
+     string product_cd = 4;
+     int64 ctgry_id = 5;
+     string product_name = 6;
+     string product_mgt_id = 7;
+     string mgt_product_name = 8;
+     string public_open_start_date = 9;
+     string product_model = 10;
+     string jan_cd = 11;
+     string isbn_cd = 12;
+     string product_spec_title = 13;
+     string sell_sts_kbn = 14;
+     int64 sell_price = 15;
+     string sell_method_kbn = 16;
+     string sell_instock_expct_day = 17;
+     string reserve_regst_day = 18;
+     string tax_kbn = 19;
+     int64 comparison_price = 20;
+     string double_price_txt = 21;
+     string dlvfee_config_kbn = 22;
+     int64 dlvfee = 23;
+     string buy_limit_config_kbn = 24;
+     int32 max_buy_quantity = 25;
+     int32 pt_magnification = 26;
+     string pwd_limit_config = 27;
+     string pwd_limit_page_title = 28;
+     string pwd_limit_page_msg = 29;
+     int32 time_sale_lock_flg = 30;
+     string time_sale_unlock_expct_date = 31;
+     int64 favorite_su = 32;
+     int64 arrival_req_su = 33;
+     string exhibit_regst_method_kbn = 34;
+	 int32 del_flg = 35;
+	 string create_date  = 36;
+	 string update_date  = 37;
+	 int64 create_id = 38;
+	 int64 update_id = 39;
+	 string create_pgm_id = 40;
+	 string update_pgm_id = 41;
+	 int64 version = 42;
+}
+message RequestProduct {
+     int64 id = 1;
+	 int64 clid = 2;
+	 int64 lot_no = 3;
+     string product_cd = 4;
+     int64 ctgry_id = 5;
+     string product_name = 6;
+     string product_mgt_id = 7;
+     string mgt_product_name = 8;
+     string public_open_start_date = 9;
+     string product_model = 10;
+     string jan_cd = 11;
+     string isbn_cd = 12;
+     string product_spec_title = 13;
+     string sell_sts_kbn = 14;
+     int64 sell_price = 15;
+     string sell_method_kbn = 16;
+     string sell_instock_expct_day = 17;
+     string reserve_regst_day = 18;
+     string tax_kbn = 19;
+     int64 comparison_price = 20;
+     string double_price_txt = 21;
+     string dlvfee_config_kbn = 22;
+     int64 dlvfee = 23;
+     string buy_limit_config_kbn = 24;
+     int32 max_buy_quantity = 25;
+     int32 pt_magnification = 26;
+     string pwd_limit_config = 27;
+     string pwd_limit_page_title = 28;
+     string pwd_limit_page_msg = 29;
+     int32 time_sale_lock_flg = 30;
+     string time_sale_unlock_expct_date = 31;
+     int64 favorite_su = 32;
+     int64 arrival_req_su = 33;
+     string exhibit_regst_method_kbn = 34;
+	 int64 create_id = 38;
+	 int64 update_id = 39;
+	 string create_pgm_id = 40;
+	 string update_pgm_id = 41;
+}
